@@ -34,7 +34,7 @@ class Parser:
                 elements = line.split(' ')
                 for element in elements:
                     if element:  # filter out whitespaces
-                        print(element)
+                        # print(element)
                         if element[0] == 'G':
                             kind = 'command'
                         elif element[0] == 'M':
@@ -45,7 +45,7 @@ class Parser:
                             kind = 'parameter'
                         self.token_list.append(Token(kind, element))
 
-        print(self.token_list)
+        # print(self.token_list)
     
     def create_ast(self):
         self.ast = []
@@ -53,17 +53,18 @@ class Parser:
         while i < len(self.token_list):
             if self.token_list[i].kind == 'command':
                 counter = 0
-                while self.token_list[i + counter].kind != 'command':
+                while i + counter + 1 < len(self.token_list) and self.token_list[i + counter + 1].kind != 'command':
                     counter += 1
-                print(counter)
+                # print(counter)
                 if self.token_list[i].value == 'G0':
+                    # print('parameters:', self.token_list[i + 1 : i + counter + 1])
                     self.ast.append(G0(
                             'G0',
                             [Parameter(name=token.value[0], value=float(token.value[1:])) for token in self.token_list[i + 1 : i + counter + 1]]
                             ))
                     i += counter
             i += 1
-        print(self.ast)
+        # print(self.ast)
         return self.ast
 
 
