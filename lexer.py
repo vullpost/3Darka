@@ -1,7 +1,6 @@
 """
 Reading the g-code file
 """
-from typing import List
 
 from commands import Parameter, G0
 
