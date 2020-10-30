@@ -33,13 +33,14 @@ class Command:
 G-CODE COMMANDS
 ===============================================================================
 
+
 Common Parameter Descriptions (from https://marlinfw.org/docs/gcode/):
 
-E: The E axis describes the position of the filament in terms of input to the
-extruder feeder.
+    E: The E axis describes the position of the filament in terms of input to
+    the extruder feeder.
 
-F: The maximum movement rate of the move between the start and end point. The
-feedrate set here applies to subsequent moves that omit this parameter.
+    F: The maximum movement rate of the move between the start and end point.
+    The feedrate set here applies to subsequent moves that omit this parameter.
 """        
 
         
