@@ -1,12 +1,15 @@
 """
 Engine
 """
-from lexer  import Lexer
+from lexer import Lexer
+
 
 class Printer:
     
     def __init__(self):
-        self.feed_rate = None 
+        self.feed_rate = None
+        self.lexer = None
+        self.ast = None
     
     def print_model(self, file):
         self.lexer = Lexer(file)
@@ -14,6 +17,7 @@ class Printer:
         for command in self.ast:
             command.execute()
             print(command.parameters)
-            
+
+
 printer = Printer()
 printer.print_model('g-code_test.txt')

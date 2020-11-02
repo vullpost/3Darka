@@ -4,7 +4,6 @@ Command class with all needed commands as child classes
 from typing import List
 
 
-
 class Parameter:
     
     def __init__(self, name, value):

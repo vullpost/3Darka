@@ -5,7 +5,6 @@ Reading the g-code file
 from commands import Parameter, G0
 
 
-
 class Lexer:
     
     def __init__(self, file: str):
@@ -23,6 +22,7 @@ class Parser:
     def __init__(self, file):
         self.file = file
         self.token_list = []
+        self.ast = []
     
     def parse_file(self):
         with open(self.file, 'r') as gcode:
@@ -59,7 +59,9 @@ class Parser:
                     # print('parameters:', self.token_list[i + 1 : i + counter + 1])
                     self.ast.append(G0(
                             'G0',
-                            [Parameter(name=token.value[0], value=float(token.value[1:])) for token in self.token_list[i + 1 : i + counter + 1]]
+                            [Parameter(
+                                name=token.value[0], value=float(token.value[1:])
+                            ) for token in self.token_list[i + 1:i + counter + 1]]
                             ))
                     i += counter
             i += 1
