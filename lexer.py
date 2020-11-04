@@ -2,7 +2,7 @@
 Reading the g-code file
 """
 
-from commands import Parameter, G0
+from commands import Parameter, G0, G1, G4, G12
 
 
 class Lexer:
@@ -55,10 +55,31 @@ class Parser:
                 while i + counter + 1 < len(self.token_list) and self.token_list[i + counter + 1].kind != 'command':
                     counter += 1
                 # print(counter)
-                if self.token_list[i].value == 'G0':
-                    # print('parameters:', self.token_list[i + 1 : i + counter + 1])
+                current_command = self.token_list[i].value
+                if current_command == 'G0':
                     self.ast.append(G0(
                             'G0',
+                            [Parameter(
+                                name=token.value[0], value=float(token.value[1:])
+                            ) for token in self.token_list[i + 1:i + counter + 1]]
+                            ))
+                elif current_command == 'G1':
+                    self.ast.append(G1(
+                            'G1',
+                            [Parameter(
+                                name=token.value[0], value=float(token.value[1:])
+                            ) for token in self.token_list[i + 1:i + counter + 1]]
+                            ))
+                elif current_command == 'G4':
+                    self.ast.append(G4(
+                            'G4',
+                            [Parameter(
+                                name=token.value[0], value=float(token.value[1:])
+                            ) for token in self.token_list[i + 1:i + counter + 1]]
+                            ))
+                elif current_command == 'G12':
+                    self.ast.append(G12(
+                            'G12',
                             [Parameter(
                                 name=token.value[0], value=float(token.value[1:])
                             ) for token in self.token_list[i + 1:i + counter + 1]]
